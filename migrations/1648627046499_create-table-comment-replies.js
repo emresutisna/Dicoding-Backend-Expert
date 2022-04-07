@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-
 exports.up = (pgm) => {
   pgm.createTable('comment_replies', {
     id: {

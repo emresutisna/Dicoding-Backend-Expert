@@ -303,4 +303,68 @@ describe('/threads endpoint', () => {
     expect(response.statusCode).toEqual(200);
     expect(responseJson.status).toEqual('success');
   });
+
+  it('should respond code 200 when succesfully like/dislike comment', async () => {
+    // Arrange
+    const server = await createServer(container);
+
+    // add user
+    await server.inject({
+      method: 'POST',
+      url: '/users',
+      payload: {
+        username: 'dicoding',
+        password: 'secret',
+        fullname: 'Dicoding Indonesia',
+      },
+    });
+
+    // login with said user
+    const responseAuth = await server.inject({
+      method: 'POST',
+      url: '/authentications',
+      payload: {
+        username: 'dicoding',
+        password: 'secret',
+      },
+    });
+    const responseAuthJson = JSON.parse(responseAuth.payload); // get the acces token
+
+    // add thread
+    const responseAddThread = await server.inject({
+      method: 'POST',
+      url: '/threads',
+      payload: {
+        title: 'sebuah thread',
+        body: 'isi sebuah thread',
+      },
+      headers: { Authorization: `Bearer ${responseAuthJson.data.accessToken}` },
+    });
+    const responseAddThreadJson = JSON.parse(responseAddThread.payload);
+    const threadId = responseAddThreadJson.data.addedThread.id;
+
+    // add comment
+    const responseAddComment = await server.inject({
+      method: 'POST',
+      url: `/threads/${threadId}/comments`,
+      payload: {
+        content: 'sebuah komentar',
+      },
+      headers: { Authorization: `Bearer ${responseAuthJson.data.accessToken}` },
+    });
+    const responseAddCommentJson = JSON.parse(responseAddComment.payload);
+    const commentId = responseAddCommentJson.data.addedComment.id;
+
+    // like comment
+    const response = await server.inject({
+      method: 'PUT',
+      url: `/threads/${threadId}/comments/${commentId}/likes`,
+      headers: { Authorization: `Bearer ${responseAuthJson.data.accessToken}` },
+    });
+    const responseJson = JSON.parse(response.payload);
+
+    // Assert
+    expect(response.statusCode).toEqual(200);
+    expect(responseJson.status).toEqual('success');
+  });
 });

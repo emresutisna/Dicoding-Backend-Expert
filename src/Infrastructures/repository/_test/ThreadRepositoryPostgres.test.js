@@ -7,6 +7,10 @@ const SavedThread = require('../../../Domains/threads/entities/SavedThread');
 const NotFoundError = require('../../../Commons/exceptions/NotFoundError');
 
 describe('ThreadRepositoryPostgres', () => {
+  beforeEach(async () => {
+    await UsersTableTestHelper.addUser({});
+  });
+
   afterEach(async () => {
     await ThreadsTableTestHelper.cleanTable();
     await UsersTableTestHelper.cleanTable();
@@ -19,8 +23,6 @@ describe('ThreadRepositoryPostgres', () => {
   describe('addThread function', () => {
     it('should persist add thread and return added thread correctly', async () => {
       // Arrange
-      await UsersTableTestHelper.addUser({});
-
       const newThread = new NewThread({
         title: 'sebuah thread',
         body: 'isi sebuah thread',
@@ -40,8 +42,6 @@ describe('ThreadRepositoryPostgres', () => {
 
     it('should return saved thread correctly', async () => {
       // Arrange
-      await UsersTableTestHelper.addUser({});
-
       const newThread = new NewThread({
         title: 'sebuah thread',
         body: 'isi sebuah thread',
@@ -65,7 +65,6 @@ describe('ThreadRepositoryPostgres', () => {
   describe('function verifyThreadIsExists', () => {
     it('should not throw NotFoundError when thread existed in db', async () => {
       // Arrange
-      await UsersTableTestHelper.addUser({});
       await ThreadsTableTestHelper.addThread({});
       const threadRepositoryPostgres = new ThreadRepositoryPostgres(pool, {});
 
@@ -84,7 +83,6 @@ describe('ThreadRepositoryPostgres', () => {
   describe('function getThreadById', () => {
     it('should get thread correctly', async () => {
       // Arrange
-      await UsersTableTestHelper.addUser({});
       await ThreadsTableTestHelper.addThread({});
       const threadRepositoryPostgres = new ThreadRepositoryPostgres(pool, {});
 

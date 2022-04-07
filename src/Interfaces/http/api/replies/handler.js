@@ -19,14 +19,12 @@ class RepliesHandler {
     const addCommentReplyUseCase = this._container.getInstance(AddCommentReplyUseCase.name);
     const addedReply = await addCommentReplyUseCase.execute(request.payload);
 
-    const response = h.response({
+    return h.response({
       status: 'success',
       data: {
         addedReply,
       },
-    });
-    response.code(201);
-    return response;
+    }).code(201);
   }
 
   async deleteCommentReplyHandler(request, h) {
@@ -42,11 +40,9 @@ class RepliesHandler {
     const deleteCommentReplyUseCase = this._container.getInstance(DeleteCommentReplyUseCase.name);
     await deleteCommentReplyUseCase.execute(payload);
 
-    const response = h.response({
+    return h.response({
       status: 'success',
-    });
-    response.code(200);
-    return response;
+    }).code(200);
   }
 }
 

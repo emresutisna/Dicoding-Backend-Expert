@@ -30,7 +30,7 @@ describe('a DetailThread entity', () => {
       id: 'thread-123',
       title: 'sebuah thread',
       body: 'isi sebuah thread',
-      date: new Date('2022-03-30T11:55:50Z'),
+      date: '2022-03-30T11:55:50Z',
       username: 'dicoding',
     };
 

@@ -16,12 +16,9 @@ describe('DeleteCommentUseCase', () => {
 
     /** mocking needed function */
     mockThreadRepository.verifyThreadIsExists = jest.fn(() => Promise.resolve());
-    mockCommentRepository.verifyCommentIsExists = jest.fn()
-      .mockImplementation(() => Promise.resolve());
-    mockCommentRepository.isAuthorized = jest.fn()
-      .mockImplementation(() => Promise.resolve());
-    mockCommentRepository.deleteComment = jest.fn()
-      .mockImplementation(() => Promise.resolve());
+    mockCommentRepository.verifyCommentIsExists = jest.fn(() => Promise.resolve());
+    mockCommentRepository.isAuthorized = jest.fn(() => Promise.resolve());
+    mockCommentRepository.deleteComment = jest.fn(() => Promise.resolve());
 
     /** creating use case instance */
     const deleteCommentUseCase = new DeleteCommentUseCase({

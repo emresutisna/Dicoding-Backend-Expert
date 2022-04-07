@@ -35,6 +35,7 @@ const DeleteCommentUseCase = require('../Applications/use_case/DeleteCommentUseC
 const GetDetailThreadUseCase = require('../Applications/use_case/GetDetailThreadUseCase');
 const AddCommentReplyUseCase = require('../Applications/use_case/AddCommentReplyUseCase');
 const DeleteCommentReplyUseCase = require('../Applications/use_case/DeleteCommentReplyUseCase');
+const LikeCommentUseCase = require('../Applications/use_case/LikeCommentUseCase');
 
 // creating container
 const container = createContainer();
@@ -239,6 +240,23 @@ container.register([
   {
     key: DeleteCommentUseCase.name,
     Class: DeleteCommentUseCase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
+        {
+          name: 'commentRepository',
+          internal: CommentRepository.name,
+        },
+        {
+          name: 'threadRepository',
+          internal: ThreadRepository.name,
+        },
+      ],
+    },
+  },
+  {
+    key: LikeCommentUseCase.name,
+    Class: LikeCommentUseCase,
     parameter: {
       injectType: 'destructuring',
       dependencies: [

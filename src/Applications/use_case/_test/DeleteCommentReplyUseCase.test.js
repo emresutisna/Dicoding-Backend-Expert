@@ -19,14 +19,10 @@ describe('DeleteCommentReplyUseCase', () => {
 
     /** mocking needed function */
     mockThreadRepository.verifyThreadIsExists = jest.fn(() => Promise.resolve());
-    mockCommentRepository.verifyCommentIsExists = jest.fn()
-      .mockImplementation(() => Promise.resolve());
-    mockCommentReplyRepository.verifyReplyIsExists = jest.fn()
-      .mockImplementation(() => Promise.resolve());
-    mockCommentReplyRepository.isAuthorized = jest.fn()
-      .mockImplementation(() => Promise.resolve());
-    mockCommentReplyRepository.deleteReply = jest.fn()
-      .mockImplementation(() => Promise.resolve());
+    mockCommentRepository.verifyCommentIsExists = jest.fn(() => Promise.resolve());
+    mockCommentReplyRepository.verifyReplyIsExists = jest.fn(() => Promise.resolve());
+    mockCommentReplyRepository.isAuthorized = jest.fn(() => Promise.resolve());
+    mockCommentReplyRepository.deleteReply = jest.fn(() => Promise.resolve());
 
     /** creating use case instance */
     const deleteCommentReplyUseCase = new DeleteCommentReplyUseCase({

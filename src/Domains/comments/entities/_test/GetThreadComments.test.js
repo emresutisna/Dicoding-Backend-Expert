@@ -20,6 +20,7 @@ describe('a GetThreadComments entity', () => {
       date: 'hari senin',
       content: 'sebuah komentar',
       is_delete: 234,
+      like_count: 1,
     };
 
     // Action and Assert
@@ -32,9 +33,10 @@ describe('a GetThreadComments entity', () => {
     const payload = {
       id: 'comment-123',
       username: 'user-123',
-      date: new Date('2022-03-02T23:20:06Z'),
+      date: '2022-03-02T23:20:06Z',
       content: 'sebuah komentar',
       is_delete: false,
+      like_count: 1,
     };
 
     // Action
@@ -54,20 +56,22 @@ describe('a GetThreadComments entity', () => {
     const payload = {
       id: 'comment-123',
       username: 'user-123',
-      date: '2022-03-02T23:20:06Z',
+      date: new Date('2022-03-02T23:20:06Z'),
       content: 'sebuah komentar',
       is_delete: true,
+      like_count: 1,
     };
 
     // Action
     const {
-      id, content, username, date,
+      id, content, username, date, likeCount,
     } = new GetThreadComments(payload);
 
     // Assert
     expect(id).toEqual(payload.id);
     expect(username).toEqual(payload.username);
     expect(date).toEqual(payload.date);
+    expect(likeCount).toEqual(payload.like_count);
     expect(content).toEqual('**komentar telah dihapus**');
   });
 });
