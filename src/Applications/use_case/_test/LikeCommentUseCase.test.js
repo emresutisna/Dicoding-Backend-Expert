@@ -37,7 +37,10 @@ describe('LikeCommentUseCase', () => {
 
     expect(mockThreadRepository.verifyThreadIsExists).toBeCalledWith(useCasePayload.threadId);
     expect(mockCommentRepository.verifyCommentIsExists).toBeCalledWith(useCasePayload.commentId);
-    expect(mockCommentRepository.verifyCommentIsLiked).toBeCalledWith(useCasePayload.commentId);
+    expect(mockCommentRepository.verifyCommentIsLiked).toBeCalledWith(
+      useCasePayload.commentId,
+      useCasePayload.user,
+    );
     expect(mockCommentRepository.likeComment).toBeCalledWith(
       useCasePayload.commentId,
       useCasePayload.user,
@@ -79,7 +82,10 @@ describe('LikeCommentUseCase', () => {
 
     expect(mockThreadRepository.verifyThreadIsExists).toBeCalledWith(useCasePayload.threadId);
     expect(mockCommentRepository.verifyCommentIsExists).toBeCalledWith(useCasePayload.commentId);
-    expect(mockCommentRepository.verifyCommentIsLiked).toBeCalledWith(useCasePayload.commentId);
+    expect(mockCommentRepository.verifyCommentIsLiked).toBeCalledWith(
+      useCasePayload.commentId,
+      useCasePayload.user,
+    );
     expect(mockCommentRepository.likeComment).toBeCalledWith(
       useCasePayload.commentId,
       useCasePayload.user,
