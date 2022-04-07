@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 class CommentsReplies {
   constructor(comments, detailReplies) {
     if (!Array.isArray(comments) || !Array.isArray(detailReplies)) {
@@ -12,7 +13,6 @@ class CommentsReplies {
           date: reply.date,
           username: reply.username,
         }));
-
       return { ...comment, replies };
     });
   }

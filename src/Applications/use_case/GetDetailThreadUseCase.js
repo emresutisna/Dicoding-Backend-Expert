@@ -14,6 +14,7 @@ class GetDetailThreadUseCase {
     const comments = await this._commentRepository.getThreadComments(threadId);
     const replies = await this._commentReplyRepository.getCommentReplies();
     const detailComments = new CommentsReplies(comments, replies);
+
     return new ThreadComments(thread, detailComments.comments);
   }
 }

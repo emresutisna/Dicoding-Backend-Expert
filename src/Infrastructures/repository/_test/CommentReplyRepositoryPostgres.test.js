@@ -10,6 +10,12 @@ const CommentReplyRepositoryPostgres = require('../CommentReplyRepositoryPostgre
 const SavedCommentReply = require('../../../Domains/replies/entities/SavedCommentReply');
 
 describe('CommentReplyRepositoryPostgres', () => {
+  beforeEach(async () => {
+    await UsersTableTestHelper.addUser({});
+    await ThreadsTableTestHelper.addThread({});
+    await CommentsTableTestHelper.addComment({});
+  });
+
   afterEach(async () => {
     await UsersTableTestHelper.cleanTable();
     await CommentRepliesTableTestHelper.cleanTable();
@@ -24,9 +30,6 @@ describe('CommentReplyRepositoryPostgres', () => {
   describe('addReply function', () => {
     it('should add comment reply correctly to database', async () => {
       // Arrange
-      await UsersTableTestHelper.addUser({});
-      await ThreadsTableTestHelper.addThread({});
-      await CommentsTableTestHelper.addComment({});
       const newReply = new NewCommentReply({
         content: 'sebuah balasan komentar',
         commentId: 'comment-123',
@@ -47,9 +50,6 @@ describe('CommentReplyRepositoryPostgres', () => {
 
     it('should return Saved Reply entity correctly', async () => {
       // Arrange
-      await UsersTableTestHelper.addUser({});
-      await ThreadsTableTestHelper.addThread({});
-      await CommentsTableTestHelper.addComment({});
       const newReply = new NewCommentReply({
         content: 'sebuah balasan komentar',
         commentId: 'comment-123',
@@ -74,9 +74,6 @@ describe('CommentReplyRepositoryPostgres', () => {
   describe('function verifyReplyIsExists', () => {
     it('should not throw NotFoundError when reply existed', async () => {
       // Arrange
-      await UsersTableTestHelper.addUser({});
-      await ThreadsTableTestHelper.addThread({});
-      await CommentsTableTestHelper.addComment({});
       await CommentRepliesTableTestHelper.addReply({});
       const replyRepositoryPostgres = new CommentReplyRepositoryPostgres(pool, {});
 
@@ -96,9 +93,6 @@ describe('CommentReplyRepositoryPostgres', () => {
   describe('function isAuthorized', () => {
     it('should throw AuthorizationError when user is not authorized to access', async () => {
       // Arrange
-      await UsersTableTestHelper.addUser({});
-      await ThreadsTableTestHelper.addThread({});
-      await CommentsTableTestHelper.addComment({});
       await CommentRepliesTableTestHelper.addReply({});
 
       const otherUser = {
@@ -119,9 +113,6 @@ describe('CommentReplyRepositoryPostgres', () => {
 
     it('should not throw error Authorization if user is authorized', async () => {
       // Arrange
-      await UsersTableTestHelper.addUser({});
-      await ThreadsTableTestHelper.addThread({});
-      await CommentsTableTestHelper.addComment({});
       await CommentRepliesTableTestHelper.addReply({});
 
       // Action
@@ -136,9 +127,6 @@ describe('CommentReplyRepositoryPostgres', () => {
   describe('function deleteReply', () => {
     it('should delete Reply correctly', async () => {
       // Arrange
-      await UsersTableTestHelper.addUser({});
-      await ThreadsTableTestHelper.addThread({});
-      await CommentsTableTestHelper.addComment({});
       await CommentRepliesTableTestHelper.addReply({});
       const replyRepositoryPostgres = new CommentReplyRepositoryPostgres(pool, {});
 
@@ -154,9 +142,6 @@ describe('CommentReplyRepositoryPostgres', () => {
   describe('function getCommentReplies', () => {
     it('should get all available and deleted replies of a comment correctly', async () => {
       // Arrange
-      await UsersTableTestHelper.addUser({});
-      await ThreadsTableTestHelper.addThread({}); // thread-123
-      await CommentsTableTestHelper.addComment({}); // comment-123
       await CommentRepliesTableTestHelper.addReply({}); // reply with content, id = reply-123
       await CommentRepliesTableTestHelper.addReply({
         id: 'reply-456',

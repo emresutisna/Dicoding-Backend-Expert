@@ -27,7 +27,7 @@ describe('a CommentsReplies entities', () => {
         id: 'comment-345',
         username: 'dicoding',
         content: 'ini juga comment',
-        date: '2022-04-01T08:22:23.785Z',
+        date: new Date('2022-04-01T08:22:23.785Z'),
       },
     ];
 
@@ -44,7 +44,7 @@ describe('a CommentsReplies entities', () => {
         comment_id: 'comment-123',
         content: 'sebuah balasan atas comment',
         username: 'nanang',
-        date: '2022-04-01T08:22:23.785Z',
+        date: new Date('2022-04-01T08:22:23.785Z'),
       },
     ];
 

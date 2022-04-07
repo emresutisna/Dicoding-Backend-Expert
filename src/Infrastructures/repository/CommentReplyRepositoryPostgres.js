@@ -38,11 +38,10 @@ class CommentReplyRepositoryPostgres extends CommentReplyRepository {
 
   async isAuthorized(id, owner) {
     const query = {
-      text: 'SELECT * FROM comment_replies WHERE id = $1',
+      text: 'SELECT owner FROM comment_replies WHERE id = $1',
       values: [id],
     };
     const result = await this._pool.query(query);
-
     if (result.rows[0].owner !== owner) {
       throw new AuthorizationError('Anda tidak berhak menghapus balasan ini');
     }
@@ -72,8 +71,7 @@ class CommentReplyRepositoryPostgres extends CommentReplyRepository {
     };
 
     const result = await this._pool.query(query);
-    const replies = result.rows.map((reply) => new GetCommentReplies(reply));
-    return replies;
+    return result.rows.map((reply) => new GetCommentReplies(reply));
   }
 }
 
