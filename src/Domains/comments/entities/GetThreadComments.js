@@ -25,7 +25,7 @@ class GetThreadComments {
       || !(typeof date === 'string' || typeof date === 'object')
       || typeof content !== 'string'
       || typeof is_delete !== 'boolean'
-      || typeof like_count === 'number'
+      || !(typeof like_count === 'string' || typeof like_count === 'number')
     ) {
       throw new Error('GET_THREAD_COMMENTS.NOT_MEET_DATA_TYPE_SPECIFICATION');
     }
